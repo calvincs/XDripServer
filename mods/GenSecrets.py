@@ -61,15 +61,15 @@ def generate_self_signed_cert():
     )
 
     subject = issuer = x509.Name([
-        x509.NameAttribute(x509.NameOID.COMMON_NAME,  parser.get('gGRP_Certificate', 'common_name')),
-        x509.NameAttribute(x509.NameOID.COUNTRY_NAME, parser.get('gGRP_Certificate', 'country_name')),
-        x509.NameAttribute(x509.NameOID.ORGANIZATION_NAME, parser.get('gGRP_Certificate', 'organization_name')),
-        x509.NameAttribute(x509.NameOID.EMAIL_ADDRESS, parser.get('gGRP_Certificate', 'email_address')),
+        x509.NameAttribute(x509.NameOID.COMMON_NAME,  parser.get('gRPC_Certificate', 'common_name')),
+        x509.NameAttribute(x509.NameOID.COUNTRY_NAME, parser.get('gRPC_Certificate', 'country_name')),
+        x509.NameAttribute(x509.NameOID.ORGANIZATION_NAME, parser.get('gRPC_Certificate', 'organization_name')),
+        x509.NameAttribute(x509.NameOID.EMAIL_ADDRESS, parser.get('gRPC_Certificate', 'email_address')),
     ])
 
     san = x509.SubjectAlternativeName([
-        x509.DNSName(parser.get('gGRP_Certificate', 'san_dns_1')),
-        x509.DNSName(parser.get('gGRP_Certificate', 'san_dns_2')),
+        x509.DNSName(parser.get('gRPC_Certificate', 'san_dns_1')),
+        x509.DNSName(parser.get('gRPC_Certificate', 'san_dns_2')),
     ])
 
     cert = x509.CertificateBuilder().subject_name(
@@ -83,17 +83,17 @@ def generate_self_signed_cert():
     ).not_valid_before(
         datetime.datetime.utcnow()
     ).not_valid_after(
-        datetime.datetime.utcnow() + datetime.timedelta(days=parser.getint('gGRP_Certificate', 'validity_days'))
+        datetime.datetime.utcnow() + datetime.timedelta(days=parser.getint('gRPC_Certificate', 'validity_days'))
     ).add_extension(
         san, critical=False
     ).sign(key, hashes.SHA256(), default_backend())
 
-    server_cert_pem_name = parser.get('gGRP_Certificate', 'server_cert_name')
+    server_cert_pem_name = parser.get('gRPC_Certificate', 'server_cert_name')
     server_cert_pem_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', server_cert_pem_name))
     with open(server_cert_pem_path, "wb") as f:
         f.write(cert.public_bytes(serialization.Encoding.PEM))
 
-    server_cert_key_name = parser.get('gGRP_Certificate', 'server_key_name')   
+    server_cert_key_name = parser.get('gRPC_Certificate', 'server_key_name')   
     server_cert_key_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', server_cert_key_name))
     with open(server_cert_key_path, "wb") as f:
         f.write(key.private_bytes(
