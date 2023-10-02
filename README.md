@@ -328,13 +328,13 @@ Better middleware should be written for web server integration and client commun
   - Drip clients should always use a proxy to communicate with the Drip Server, to ensure rate limiting and other security measures are enforced.
   
 - Ledger validations:
-  - Channel Creation, Channel Refills, and Payments are always verified on the XRP Ledger.
+  - Channel Creation, Channel Refreshes are always verified on the XRP Ledger. Channel claims that occur and end of session also occur on the XRP Ledger.
 
 - Off-ledger micropayments:
-  - Sent from Drip client to Drip Server and are authenticated using PublicKey.
+  - Sent from Drip client to Drip Server and are authenticated using PublicKey, and criteria on the server.
 
 - Universal Applicability:
-  - Although the example uses a web client, the process is compatible with any client communicating over HTTP. Similarly, while a Drip Client is mentioned, it could be any wallet interacting with the Drip Server using the specified protocol.
+  - Although the example uses a web client, the process is compatible with any client communicating over HTTPS. Similarly, while a Drip Client is mentioned, it could be any wallet interacting with the Drip Server using the specified protocol.
 
 - While not required, its is recommended that the Drip Client create unique payment channels for each DripToken, and NOT use the clients main wallet seed in the Drip Client. This is to ensure that the Drip Client, if compromised, cannot be used to steal funds from the client's main wallet.  The risk is then limited to the funds in the Drip Client's payment channel.
 
