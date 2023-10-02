@@ -1,6 +1,8 @@
 # XDripServer
 Drip server for drip clients, supporting XRP ledger based payment channels
 
+This is a pre-release, non public, for review and commentary.
+
 
 ## Quick Start Guide / Early Release
 
