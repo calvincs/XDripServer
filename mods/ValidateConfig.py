@@ -50,7 +50,7 @@ def validate_ini(file_path):
             'expired_window_seconds', 
             'offload_interval_seconds'
         ],
-        'gGRP_Certificate': [
+        'gRPC_Certificate': [
             'generate_self_signed_cert', 
             'server_cert_name', 
             'server_key_name', 
