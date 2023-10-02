@@ -1,0 +1,166 @@
+syntax = "proto3";
+package dripengine;
+
+// python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. grpc_drip_server.proto
+
+// Request message for Create_new_session
+message CreateSessionRequest {
+    string session_id = 1;  // Session ID from the web server
+}
+
+// Response message for Create_new_session
+message CreateSessionResponse {
+    string Action = 1;          // Expected to be "SessionCreated"
+    string SessionID = 2;       // Web session ID
+    string DripToken = 3;       // UUID for the drip token
+    string Domain = 4;          // Domain from the config
+    string URI = 5;             // Deep link constructed using domain and drip token
+    string Message = 6;
+}
+
+// Request message for Destroy_session
+message DestroySessionRequest {
+    string session_id = 1;  // Session ID
+    string drip_token = 2;  // Drip token, if available
+}
+
+// Response message for Destroy_session
+message DestroySessionResponse {
+    string Action = 1;      // Expected to be "DestroySession"
+    string Message = 2;     // Provides information about the session's destruction or errors encountered
+}
+
+// Request message for GetSession
+message GetSessionRequest {
+    string session_id = 1;  // The session ID from the web server
+    string drip_token = 2;      // Drip token, if available
+}
+
+// Response message for GetSession
+message GetSessionResponse {
+    string Action = 1;          // Expected to be "QuerySession"
+    string SessionID = 2;       // Session ID from the database
+    string DripToken = 3;       // Drip token from the database
+    string Domain = 4;          // Domain information
+    string URI = 5;             // URI value associated with the session
+    string PaymentState = 6;    // Payment state associated with the session
+    string ClientAddress = 7;   // Client wallet address associated with the session
+    string Message = 8;         // Provides information about the session's retrieval or errors encountered
+}
+
+// Request message for ClientRefreshInquiry
+message ClientRefreshInquiryRequest {
+    string drip_token = 1;          // Drip token
+}
+
+// Response message for ClientRefreshInquiry
+message ClientRefreshInquiryResponse {
+    string Action = 1;          // Expected to be "RefreshAgreement"
+    string JWT = 2;             // The JWT token generated
+    string Message = 3;         // Message indicating proposal creation
+}
+
+
+// Request message for ClientInquiry
+message ClientInquiryRequest {
+    string drip_token = 1;          // Drip token
+}
+
+//Request message for ClientRefreshAccept
+message ClientRefreshAcceptRequest {
+    string Action = 1;         // Expected to be "RefreshAgreement"
+    string TXHash = 2;         // Transaction hash
+    string JWTPayload = 3;     // JWT Payload
+}
+
+
+//Response message for ClientRefreshAccept
+message ClientRefreshAcceptResponse {
+    string Action = 1;          // Expected to be "RefreshApproved" or "RefreshDenied"
+    string Message = 6;         // Message
+}
+
+
+// Response message for ClientInquiry
+message ClientInquiryResponse {
+    string Action = 1;          // Expected to be "Proposal"
+    string JWT = 2;             // The JWT token generated
+    string Message = 3;         // Message indicating proposal creation
+}
+
+// Request message for ClientAcceptAgreement
+message ClientAcceptAgreementRequest {
+    string Action = 1;         // Expected to be "Agreement"
+    string TXHash = 2;         // Transaction hash
+    string JWTPayload = 3;     // JWT Payload
+}
+
+// Response message for ClientAcceptAgreement
+message ClientAcceptAgreementResponse {
+    string Action = 1;         // Expected to be "AgreementDenied" or "AgreementApproved"
+    string DripToken = 2;      // Drip token
+    string ProposalID = 3;     // Proposal ID
+    string ChannelID = 4;      // Channel ID
+    int32 Expires = 5;         // Expiration epoch UTC
+    string Message = 6;        // Message
+}
+
+// Request message for MakeUnitPayment
+message MakeUnitPaymentRequest {
+    string session_id = 1;         // Session ID from the web server
+    string drip_token = 2;         // Drip token from the web server
+    int32 amount = 3;             // Amount to pay
+}
+
+// Response message for MakeUnitPayment
+message MakeUnitPaymentResponse {
+    string Action = 1;              // Expected to be "PurchaseApproved" or "PurchaseDenied"
+    string Message = 2;             // Confirmation message
+}
+
+// Request message for GetOwedInfo
+message GetOwedInfoRequest {
+    string session_id = 1;         // Session ID from the web server
+    string drip_token = 2;         // Drip token from the web server
+}
+
+// Response message for GetOwedInfo
+message GetOwedInfoResponse {
+    string Action = 1;              // Expected to be "AmountDue"
+    string Domain = 2;
+    string ProposalID = 3;
+    int32 TTL = 4;
+    string Currency = 5;
+    int32 AmountPaid = 6;
+    int32 AmountDue = 7;
+    string State = 8;
+    string Message = 9;
+}
+
+// Request message for ProcessPayment
+message ProcessPaymentRequest {
+    string drip_token = 1;       // The drip token to identify the payment
+    int32 amount = 2;          // Amount being paid
+    string signature = 3;      // The signature for the payment
+}
+
+// Response message for ProcessPayment
+message ProcessPaymentResponse {
+        string Action = 1;             // Expected to be "PaymentAccepted" or "PaymentDenied"
+        string Message = 2;            // Describes the payment status
+}
+
+
+// Service Endpoints
+service DripEngineService {
+    rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
+    rpc DestroySession(DestroySessionRequest) returns (DestroySessionResponse);
+    rpc GetSession(GetSessionRequest) returns (GetSessionResponse);
+    rpc ClientInquiry(ClientInquiryRequest) returns (ClientInquiryResponse);
+    rpc ClientAcceptAgreement(ClientAcceptAgreementRequest) returns (ClientAcceptAgreementResponse);
+    rpc ClientRefreshInquiry(ClientRefreshInquiryRequest) returns (ClientRefreshInquiryResponse);
+    rpc ClientRefreshAccept(ClientRefreshAcceptRequest) returns (ClientRefreshAcceptResponse);
+    rpc MakeUnitPayment(MakeUnitPaymentRequest) returns (MakeUnitPaymentResponse);
+    rpc GetOwedInfo(GetOwedInfoRequest) returns (GetOwedInfoResponse);
+    rpc ProcessPayment(ProcessPaymentRequest) returns (ProcessPaymentResponse);
+}
