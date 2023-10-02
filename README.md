@@ -335,3 +335,6 @@ Better middleware should be written for web server integration and client commun
   - Although the example uses a web client, the process is compatible with any client communicating over HTTP. Similarly, while a Drip Client is mentioned, it could be any wallet interacting with the Drip Server using the specified protocol.
 
 - While not required, its is recommended that the Drip Client create unique payment channels for each DripToken, and NOT use the clients main wallet seed in the Drip Client. This is to ensure that the Drip Client, if compromised, cannot be used to steal funds from the client's main wallet.  The risk is then limited to the funds in the Drip Client's payment channel.
+
+## Process Flow Diagram
+![Flow Diagram](https://github.com/calvincs/XDripServer/blob/main/flow.svg)
