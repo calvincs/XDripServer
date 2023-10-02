@@ -1,4 +1,4 @@
-#!drip-vevn/bin/python3
+#!/usr/bin/env python3
 from xrpl.clients import JsonRpcClient
 from xrpl.constants import CryptoAlgorithm
 from xrpl.models.transactions import PaymentChannelCreate, PaymentChannelFund, Memo
