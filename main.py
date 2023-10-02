@@ -207,7 +207,7 @@ def main():
         passphrase = os.environ["DRIP_SECRET"].encode('utf-8')
         # - Do we need to generate a self-signed certificate?
         if not (os.path.exists("cert.pem") and os.path.exists("key.pem")):
-            if parser.getboolean('gGRP_Certificate', 'generate_self_signed_cert', fallback=False):
+            if parser.getboolean('gRPC_Certificate', 'generate_self_signed_cert', fallback=False):
                 logger.warning("No certificates found, generating new self-signed certificate.")
                 generate_self_signed_cert()
             else:
@@ -215,12 +215,12 @@ def main():
                 sys.exit(1)
 
         # - Load the certificate and key
-        server_cert_pem_name = parser.get('gGRP_Certificate', 'server_cert_name')
+        server_cert_pem_name = parser.get('gRPC_Certificate', 'server_cert_name')
         server_cert_pem_path = os.path.abspath(os.path.join(os.path.dirname(__file__), server_cert_pem_name))
         with open(server_cert_pem_path, "rb") as f:
             cert = f.read()
 
-        server_cert_key_name = parser.get('gGRP_Certificate', 'server_key_name')   
+        server_cert_key_name = parser.get('gRPC_Certificate', 'server_key_name')   
         server_cert_key_path = os.path.abspath(os.path.join(os.path.dirname(__file__), server_cert_key_name))
         with open(server_cert_key_path, "rb") as f:
             key = serialization.load_pem_private_key(
