@@ -320,7 +320,7 @@ Better middleware should be written for web server integration and client commun
 
 
 ### Additional Points:
-- Not all "Action" Responses are listed here, this is only a high lever overview of the process flow.
+- Not all "Action" Responses are listed here, this is only a high level overview of the process flow.
 
 - Communication security and protocols:
   - Between Drip Server and Web Server: gRPC with TLS.
