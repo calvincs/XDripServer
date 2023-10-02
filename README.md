@@ -140,7 +140,7 @@ Expired window seconds, the time in seconds till the payment channel closes, and
 Offload interval seconds, how often the server should check the hot wallet balance of the server, and attempt to move funds if over the specified value to a cold wallet.
 
 ```
-[gGRP_Certificate]
+[gRPC_Certificate]
 # Genreate a self-signed certificate for the gRPC server
 # This is only used if create_grpc_self_cert is true, else use the paths below
 generate_self_signed_cert = true
