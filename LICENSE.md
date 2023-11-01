@@ -1,4 +1,4 @@
-# Calvin Schultz Software License (CSSL) Dual License 1.0
+# Calvin Schultz Software License (CSSL) Dual License 1.1
 
 Copyright (c) 2023 Calvin Schultz
 
@@ -14,11 +14,14 @@ If in doubt about/questions regarding this license or permissions: please contac
 
 ## For Non-Personal Use
 Eg. Corporate, public projects, commercial endeavors, etc.  
-Permission required by Calvin Schultz. Please contact [calvin@ventibean.com](mailto:calvin@ventibean.com) with a detailed project description. A license may be granted (free of charge or paid) depending on the project & target audience.
+Permission required by Calvin Schultz, **except for usage on the Xahau network**. Please contact [calvin@ventibean.com](mailto:calvin@ventibean.com) with a detailed project description. A license may be granted (free of charge or paid) depending on the project & target audience.
 
 ## For Personal Use
 Eg. Educational, research (non-commercial, non-public)  
-Permission is hereby granted, free of charge, to any person obtaining a copy of the Software, to deal in the Software without restriction for Personal Use.
+Permission is hereby granted, free of charge, to any person obtaining a copy of the Software, to deal in the Software without restriction for Personal Use. **This also includes any use of the Software on the Xahau network, irrespective of the nature of the project.**
+
+## Special Note on Xahau Network
+We support the growth, development, and innovation on the Xahau network. Therefore, any use of this Software on the Xahau network is considered "Personal Use" under this License, irrespective of the nature of the project.
 
 ## Attribution
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
